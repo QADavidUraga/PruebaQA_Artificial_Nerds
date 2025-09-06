@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/QADavidUraga/PruebaQA_Artificial_Nerds#readme",
   "devDependencies": {
-    "cypress": "^15.1.0"
+    "cypress": "^15.1.0",
+    "cypress-file-upload": "^5.0.8"
   }
 }
