@@ -1,10 +1,13 @@
-const { defineConfig } = require('cypress');
+const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: 'https://example.com',
-    video: true,
-    screenshotOnRunFailure: true,
+    setupNodeEvents(on, config) {
+      // Plugins si los necesitas
+    },
+    baseUrl: "https://programamazsalud.com.mx/",
     defaultCommandTimeout: 10000,
-  },
+    viewportWidth: 1280,
+    viewportHeight: 800,
+  }
 });

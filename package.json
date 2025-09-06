@@ -1,26 +1,13 @@
 {
-  "name": "pruebaqa_artificial_nerds",
+  "name": "cypress-chatbot",
   "version": "1.0.0",
-  "description": "Repositorio donde se encuentran los archivos con los scripts correspondientes a la prueba técnica impartida por Artificial Nerds.",
-  "main": "ChatbotQA.cy.js",
+  "description": "Automatización del chatbot MAZSalud con Cypress",
   "scripts": {
-    "test": "cypress run --reporter junit --reporter-options mochaFile=reports/junit-[hash].xml,toConsole=true",
-    "test2": "echo \"Error: no test specified\" && exit 1",
-    "tests": "cypress run --reporter- junit --reporter-options mochaFile=reports/junit-[hash].xml,toConsole=true"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/QADavidUraga/PruebaQA_Artificial_Nerds.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/QADavidUraga/PruebaQA_Artificial_Nerds/issues"
-  },
-  "homepage": "https://github.com/QADavidUraga/PruebaQA_Artificial_Nerds#readme",
   "devDependencies": {
-    "cypress": "^15.1.0",
+    "cypress": "^13.6.0",
     "cypress-file-upload": "^5.0.8"
   }
 }
