@@ -4,8 +4,9 @@
   "description": "Repositorio donde se encuentran los archivos con los scripts correspondientes a la prueba técnica impartida por Artificial Nerds.",
   "main": "ChatbotQA.cy.js",
   "scripts": {
-    "test": "cypress run --reporter junit --reporter-options mochaFile=reports/junit-[hash].xml,toConsole=true",
-    "test2": "echo \"Error: no test specified\" && exit 1"
+    "test": "cypress run --spec 'pruebaQA.cy.js,ChatbotQA.cy.js' --reporter junit --reporter-options mochaFile=reports/junit-[hash].xml,toConsole=true",
+    "test2": "echo \"Error: no test specified\" && exit 1",
+    "tests": "cypress run --reporter- junit --reporter-options mochaFile=reports/junit-[hash].xml,toConsole=true"
   },
   "repository": {
     "type": "git",
