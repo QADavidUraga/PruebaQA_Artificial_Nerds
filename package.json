@@ -4,10 +4,11 @@
   "description": "Automatización del chatbot MAZSalud con Cypress",
   "scripts": {
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "test": "cypress run --browser chrome --headless --reporter junit --reporter-options mochaFile=reports/junit-[hash].xml,toConsole=true"
   },
   "devDependencies": {
-    "cypress": "^13.6.0",
+    "cypress": "^13.17.0",
     "cypress-file-upload": "^5.0.8"
   }
 }
