@@ -1,0 +1,91 @@
+name: CI • Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  tests-js:
+    name: JS Tests
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      # --- Cypress example (comment out if using Playwright/Jest) ---
+      - name: Run Cypress headless + record JUnit
+        uses: cypress-io/github-action@v6
+        with:
+          command: |
+            npx cypress run \
+              --reporter junit \
+              --reporter-options "mochaFile=reports/junit-[hash].xml,toConsole=true"
+        env:
+          # If you use the Cypress Dashboard, add CYPRESS_RECORD_KEY as a repo secret and enable:
+          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # and add: --record --parallel --group "CI"
+          # (optional)
+          TZ: America/Mexico_City
+
+      # --- Playwright example (instead of Cypress) ---
+      # - run: npx playwright install --with-deps
+      # - run: npx playwright test --reporter=line,junit --output=playwright-report --reporter-junit-output=reports/junit.xml
+
+      # --- Jest/Mocha example (instead of Cypress/Playwright) ---
+      # - run: npx jest --ci --reporters=default --reporters=jest-junit
+      #   env:
+      #     JEST_JUNIT_OUTPUT_DIR: reports
+      #     JEST_JUNIT_OUTPUT_NAME: junit.xml
+
+      - name: Upload test results (JUnit XML)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-results
+          path: reports/*.xml
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Upload Cypress videos & screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/videos/**
+            cypress/screenshots/**
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Publish JUnit to PR Checks
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: JS Tests
+          path: "reports/*.xml"
+          reporter: jest-junit # works for most JUnit; try 'java-junit' if not detected
+          fail-on-error: false
+
+      - name: Add summary
+        if: always()
+        run: |
+          echo "## JS test run summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Branch/PR: $GITHUB_REF" >> $GITHUB_STEP_SUMMARY
+          echo "- Artifacts: junit-results, cypress-artifacts" >> $GITHUB_STEP_SUMMARY
