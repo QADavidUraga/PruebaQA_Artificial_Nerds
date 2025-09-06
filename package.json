@@ -1,0 +1,24 @@
+{
+  "name": "pruebaqa_artificial_nerds",
+  "version": "1.0.0",
+  "description": "Repositorio donde se encuentran los archivos con los scripts correspondientes a la prueba técnica impartida por Artificial Nerds.",
+  "main": "ChatbotQA.cy.js",
+  "scripts": {
+    "test": "cypress run --reporter junit --reporter-options mochaFile=reports/junit-[hash].xml,toConsole=true",
+    "test2": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QADavidUraga/PruebaQA_Artificial_Nerds.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/QADavidUraga/PruebaQA_Artificial_Nerds/issues"
+  },
+  "homepage": "https://github.com/QADavidUraga/PruebaQA_Artificial_Nerds#readme",
+  "devDependencies": {
+    "cypress": "^15.1.0"
+  }
+}
